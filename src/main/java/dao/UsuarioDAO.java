@@ -47,4 +47,16 @@ public class UsuarioDAO {
         }
 
     }
+
+    public void actualizar(Usuario usuario) {
+      String sql="UPDATE sistema.usuario SET nombre=?, email=? WHERE id=?";
+      try(Connection conn = Conexion.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, usuario.getNome());
+        ps.setString(2, usuario.getEmail());
+        ps.setLong(3, usuario.getId());
+        ps.executeUpdate();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
 }
