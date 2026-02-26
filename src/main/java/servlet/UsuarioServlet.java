@@ -3,9 +3,9 @@ package servlet;
 import java.io.IOException;
 import java.util.List;
 
-import jakarta.servlet.annotation.WebServlet;
 import dao.UsuarioDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,4 +25,29 @@ public class UsuarioServlet  extends HttpServlet{
             response.getWriter().println("<p>" + u.getId() + " - " + u.getNome() + " - " + u.getEmail() + "</p>");
         }
     }
+
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+            System.err.println("Recibiendo solicitud POST para crear un nuevo usuario...");
+    String nombre = request.getParameter("nombre");
+    String email = request.getParameter("email");
+
+    if (nombre != null && email != null) {
+
+        nombre = nombre.trim();
+        email = email.trim();
+
+        if (!nombre.isEmpty() && !email.isEmpty()) {
+
+            Usuario usuario = new Usuario();
+            usuario.setNome(nombre);
+
+            usuario.setEmail(email);
+
+            usuarioDAO.insertar(usuario);
+        }
+    }
+
+    response.sendRedirect("usuarios");
+}
 }

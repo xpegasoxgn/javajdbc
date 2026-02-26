@@ -2,13 +2,13 @@ package model;
 
 public class Usuario {
     private Long id;
-    private String nome;
+    private String nombre;
     private String email;
     public Usuario() {
     }
     public Usuario(Long id, String nome, String email) {
         this.id = id;
-        this.nome = nome;
+        this.nombre = nome;
         this.email = email;
     }
     public Long getId() {
@@ -18,10 +18,10 @@ public class Usuario {
         this.id = id;
     }
     public String getNome() {
-        return nome;
+        return nombre;
     }
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nombre = nome;
     }
     public String getEmail() {
         return email;
