@@ -18,12 +18,22 @@ public class UsuarioServlet  extends HttpServlet{
     private UsuarioDAO usuarioDAO=new UsuarioDAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        List<Usuario> usuarios = usuarioDAO.listar();
-        response.getWriter().println("<h1>Lista de Usuarios</h1>");
-        for(Usuario u : usuarios) {
-            response.getWriter().println("<p>" + u.getId() + " - " + u.getNome() + " - " + u.getEmail() +"<a href='editar?id="+u.getId()+"'>Editar</a>"+ "</p>");
+        //response.setContentType("text/html");
+        //List<Usuario> usuarios = usuarioDAO.listar();
+        //response.getWriter().println("<h1>Lista de Usuarios</h1>");
+        //for(Usuario u : usuarios) {
+          //  response.getWriter().println("<p>" + u.getId() + " - " + u.getNome() + " - " + u.getEmail() +"<a href='editar?id="+u.getId()+"'>Editar</a>"+ "</p>");
+        //}
+
+        String id=request.getParameter("id");
+        if(id!=null) {
+           Usuario usuario = usuarioDAO.buscarPorId(Long.parseLong(id));
+              request.setAttribute("usuario", usuario);
         }
+        List<Usuario> usuarios = usuarioDAO.listar();
+        request.setAttribute("usuarios", usuarios);
+        request.getRequestDispatcher("usuarios.jsp").forward(request, response);
+
     }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response)

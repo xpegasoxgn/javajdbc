@@ -59,4 +59,22 @@ public class UsuarioDAO {
         e.printStackTrace();
       }
     }
+
+    public Usuario buscarPorId(Long id) {
+        String sql = "SELECT id, nombre, email FROM sistema.usuario WHERE id = ?";
+        try(Connection conn = Conexion.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return new Usuario(
+                    rs.getLong("id"),
+                    rs.getString("nombre"),
+                    rs.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
