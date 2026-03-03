@@ -38,6 +38,24 @@ public class UsuarioServlet  extends HttpServlet{
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+
+
+            String accion = request.getParameter("accion");
+            if ("eliminar".equals(accion)) {
+                String idStr= request.getParameter("id");
+                if (idStr != null) {
+                    try {
+                        Long id = Long.parseLong(idStr.trim());
+                        usuarioDAO.eliminar(id);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return;
+            }
+
+            //crear /actualizar
+
             System.err.println("Recibiendo solicitud POST para crear un nuevo usuario...");
             String id = request.getParameter("id");
             String nombre = request.getParameter("nombre");
@@ -60,8 +78,13 @@ public class UsuarioServlet  extends HttpServlet{
                     usuarioDAO.insertar(usuario);    
                 }else {
                     //update
-                    usuario.setId(Long.parseLong(id.trim()));
-                    usuarioDAO.actualizar(usuario);
+                    try {
+                        Long idLong = Long.parseLong(id.trim());
+                        usuario.setId(idLong);
+                        usuarioDAO.actualizar(usuario);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 }   
                 
             }

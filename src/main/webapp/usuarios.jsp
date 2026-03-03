@@ -42,6 +42,14 @@
     <li>
         <%= u.getNome() %> - <%= u.getEmail() %>
         <a href="usuarios?id=<%= u.getId() %>">Editar</a>
+
+        <form action="usuarios" method="post" style="display: inline;">
+            <input type="hidden" name="id" value="<%= u.getId() %>">
+            <input type="hidden" name="accion" value="eliminar">
+            <button type="submit"
+                onclick="return confirm('¿Estás seguro de eliminar este usuario?');">
+                Eliminar</button>
+        </form>
     </li>
 <%
         }
