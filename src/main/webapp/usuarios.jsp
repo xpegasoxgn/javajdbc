@@ -25,6 +25,13 @@
            value="<%= (usuario != null ? usuario.getEmail() : "") %>">
     <br>
 
+    Departamento
+<select name="departamentoId">
+    <option value="">--Seleccionar--</option>
+    <option value="1">Sistema</option>
+    <option value="2">Ventas</option>
+    <option value="3">Marketing</option>
+</select>
     <button type="submit">
         <%= (usuario != null ? "Actualizar" : "Crear") %>
     </button>

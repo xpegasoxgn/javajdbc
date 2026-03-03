@@ -14,7 +14,7 @@ public class UsuarioDAO {
     public List<Usuario> listar() {
        List <Usuario> usuarios = new ArrayList<>();
             try(Connection conn = Conexion.obtenerConexion()) {
-               PreparedStatement ps = conn.prepareStatement("SELECT id , nombre , email from sistema.usuario");
+               PreparedStatement ps = conn.prepareStatement("SELECT u.id, u.nombre, u.email, d.id as departamento_id, d.nombre as departamento_nombre FROM sistema.usuario u LEFT JOIN sistema.departamento d ON u.departamento_id = d.id");
                ResultSet rs = ps.executeQuery();
 
                 while(rs.next()) {
@@ -23,6 +23,8 @@ public class UsuarioDAO {
                         rs.getString("nombre"),
                         rs.getString("email")
                      );
+                     u.setDepartamentoId(rs.getLong("departamento_id"));
+                     u.setDepartamentoNombre(rs.getString("departamento_nombre"));
                      usuarios.add(u);
                 }
 
