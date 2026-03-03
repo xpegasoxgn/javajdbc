@@ -87,4 +87,24 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }   
+
+    public List<Usuario> buscarPorNombre(String nombre) {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT id, nombre, email FROM sistema.usuario WHERE nombre LIKE ?";
+        try(Connection conn = Conexion.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + nombre + "%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Usuario u = new Usuario(
+                    rs.getLong("id"),
+                    rs.getString("nombre"),
+                    rs.getString("email")
+                );
+                usuarios.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
 }

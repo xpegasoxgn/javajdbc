@@ -34,6 +34,12 @@
 
 <h3>Lista de Usuarios</h3>
 
+<form action="usuarios" method="get">
+    Buscar por nombre:
+    <input type="text" name="buscar"/>
+    <button type="submit">Buscar</button>
+
+</form>
 <ul>
 <%
     if (usuarios != null) {

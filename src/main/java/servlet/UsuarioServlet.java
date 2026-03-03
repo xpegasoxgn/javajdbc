@@ -25,12 +25,23 @@ public class UsuarioServlet  extends HttpServlet{
           //  response.getWriter().println("<p>" + u.getId() + " - " + u.getNome() + " - " + u.getEmail() +"<a href='editar?id="+u.getId()+"'>Editar</a>"+ "</p>");
         //}
 
-        String id=request.getParameter("id");
-        if(id!=null) {
-           Usuario usuario = usuarioDAO.buscarPorId(Long.parseLong(id));
-              request.setAttribute("usuario", usuario);
+        //String id=request.getParameter("id");
+        //if(id!=null) {
+          // Usuario usuario = usuarioDAO.buscarPorId(Long.parseLong(id));
+        //      request.setAttribute("usuario", usuario);
+      //  }
+    //    List<Usuario> usuarios = usuarioDAO.listar();
+  //      request.setAttribute("usuarios", usuarios);
+//        request.getRequestDispatcher("usuarios.jsp").forward(request, response);
+
+
+        String Buscar =request.getParameter("buscar");
+        List<Usuario> usuarios;
+        if (Buscar != null && !Buscar.trim().isEmpty()) {
+            usuarios = usuarioDAO.buscarPorNombre(Buscar.trim());
+        } else {
+            usuarios = usuarioDAO.listar();
         }
-        List<Usuario> usuarios = usuarioDAO.listar();
         request.setAttribute("usuarios", usuarios);
         request.getRequestDispatcher("usuarios.jsp").forward(request, response);
 
