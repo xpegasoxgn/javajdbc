@@ -98,5 +98,17 @@ public class UsuarioServlet  extends HttpServlet{
         response.sendRedirect("usuarios");
     }
 
-    
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idStr = request.getParameter("id");
+        if (idStr != null) {
+            try {
+                Long id = Long.parseLong(idStr.trim());
+                usuarioDAO.eliminar(id);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        response.sendRedirect("usuarios");
+    }
 }

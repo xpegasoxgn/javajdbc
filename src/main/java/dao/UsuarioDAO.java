@@ -77,4 +77,14 @@ public class UsuarioDAO {
         }
         return null;
     }
+
+    public void eliminar(Long id) {
+        String sql = "DELETE FROM sistema.usuario WHERE id = ?";
+        try(Connection conn = Conexion.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }   
 }
